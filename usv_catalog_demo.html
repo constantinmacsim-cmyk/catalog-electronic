@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog Electronic USV 2026–2027 — Demo</title>
+<style>
+  :root { --navy:#1b2348; --navy2:#283257; --ink:#20284d; --muted:#69718a; --line:#e5e8ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--ink); background:#fff; }
+  .university-bar { min-height:150px; background:var(--navy); color:white; display:flex; align-items:center; gap:24px; padding:28px clamp(20px,5vw,64px); }
+  .mark { width:72px; height:72px; flex:0 0 72px; border:2px solid #8cc9f1; border-radius:50% 50% 12px 12px; display:grid; place-items:center; color:#a6d8fa; font-size:22px; font-weight:800; letter-spacing:-2px; }
+  .university-name { font-size:clamp(18px,2.2vw,27px); line-height:1.35; font-weight:600; }
+  .search-icon { margin-left:auto; font-size:34px; border:0; background:transparent; color:white; cursor:pointer; }
+  .site-bar { min-height:180px; display:flex; align-items:center; gap:clamp(24px,8vw,100px); padding:30px clamp(20px,8vw,105px); background:var(--navy2); color:white; }
+  .menu-button { border:0; background:transparent; color:white; font-size:44px; line-height:1; cursor:pointer; padding:0; }
+  .site-title { font-size:clamp(27px,4.5vw,54px); font-weight:400; line-height:1.2; }
+  .hero { min-height:280px; display:flex; align-items:center; justify-content:center; text-align:center; padding:48px 20px; background:linear-gradient(90deg,rgba(255,255,255,.94),rgba(255,255,255,.83)), url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1800&q=80') center/cover; }
+  .hero h1 { margin:0 0 14px; font-family:Georgia,'Times New Roman',serif; font-size:clamp(32px,5vw,58px); color:var(--navy); }
+  .breadcrumb { font-family:Georgia,'Times New Roman',serif; font-size:clamp(18px,2.5vw,30px); color:var(--navy); }
+  .demo-note { display:inline-block; margin-top:18px; padding:7px 12px; border:1px solid #c7d0e5; border-radius:4px; background:#f4f6fb; color:#4b5677; font-size:12px; letter-spacing:.08em; font-weight:700; }
+  main { max-width:1000px; margin:0 auto; padding:42px 22px 70px; }
+  .section-heading { display:flex; align-items:end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:22px; }
+  h2 { margin:0; font-size:28px; color:var(--navy); }
+  .sub { margin:8px 0 0; color:var(--muted); font-size:14px; }
+  .search { width:min(100%,340px); padding:13px 15px; border:1px solid #cfd5e3; border-radius:4px; font-size:15px; outline-color:#7aa8df; }
+  .student-list { list-style:none; padding:0; margin:0; border-top:1px solid var(--line); }
+  .student-list li { min-height:58px; display:flex; align-items:center; gap:16px; padding:13px 16px; border-bottom:1px solid var(--line); }
+  .student-list li:nth-child(even) { background:#f8f9fc; }
+  .initial { width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:#e8edf8; color:var(--navy); font-weight:700; flex:0 0 34px; }
+  .student-name { font-size:16px; font-weight:600; }
+  .student-id { margin-left:auto; color:#8a91a5; font-size:12px; }
+  .empty { display:none; padding:24px 16px; color:var(--muted); }
+  footer { padding:24px; text-align:center; background:#f5f6f9; color:#737b91; font-size:12px; line-height:1.6; }
+  .menu-panel { display:none; padding:14px clamp(20px,8vw,105px); background:#141b3b; color:white; }
+  .menu-panel.open { display:block; }
+  @media(max-width:560px) {
+    .university-bar { min-height:120px; gap:14px; padding:20px; }
+    .mark { width:54px; height:54px; flex-basis:54px; font-size:18px; }
+    .site-bar { min-height:140px; gap:22px; padding:24px 20px; }
+    .menu-button { font-size:36px; }
+    .hero { min-height:240px; }
+    .student-id { display:none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="university-bar">
+    <div class="mark" aria-hidden="true">USV</div>
+    <div class="university-name">Universitatea<br>Ștefan cel Mare<br>Suceava</div>
+    <button class="search-icon" aria-label="Caută în catalog" onclick="document.querySelector('#studentSearch').focus()">⌕</button>
+  </div>
+  <div class="site-bar">
+    <button class="menu-button" aria-label="Deschide meniul" aria-expanded="false" onclick="toggleMenu()">☰</button>
+    <div class="site-title">Catalog Electronic<br>USV 2026–2027</div>
+  </div>
+  <nav class="menu-panel" id="menuPanel">Acasă　·　Catalog　·　Despre acest demo</nav>
+  <section class="hero">
+    <div>
+      <h1>Catalog Electronic USV 2026–2027</h1>
+      <div class="breadcrumb">Home / Catalog electronic</div>
+      <div class="demo-note">USV AN 4 - GRUPA 3112</div>
+    </div>
+  </section>
+</header>
+<main>
+  <div class="section-heading">
+    <div>
+      <h2>Lista studenților</h2>
+      <p class="sub">23 studenti</p>
+    </div>
+    <input id="studentSearch" class="search" type="search" placeholder="Caută un nume..." aria-label="Caută un nume">
+  </div>
+  <ul class="student-list" id="studentList"></ul>
+  <div class="empty" id="emptyMessage">Nu a fost găsit niciun nume.</div>
+</main>
+<footer>
+ Universitatea Stefan cel Mare USV
+</footer>
+<script>
+const names = [
+  "Alexandru Sauciuc", "Antonio Ciobanu", "Bogdan Călin", "Cătălin Luchian",
+  "Constantin Macsim", "Candrea Munteanu", "Daniel Andronic", "Denis Botezatu",
+  "Dobrin Cernat", "Emil Cojocaru", "Florin Dascălu", "Gabriel Iacob",
+  "George Lupu", "Ian Mihalache", "Ionuț Neagu", "Laris Olaru",
+  "Marius Pavel", "Mihai Rusu", "Nicolas Sava", "Paul Toma",
+  "Radu Ursachi", "Ștefan Vornicu", "Vlad Zaharia"
+].sort((a,b)=>a.localeCompare(b,'ro'));
+const list = document.getElementById('studentList');
+const search = document.getElementById('studentSearch');
+function render() {
+  const query = search.value.trim().toLocaleLowerCase('ro');
+  const filtered = names.filter(name => name.toLocaleLowerCase('ro').includes(query));
+  list.innerHTML = '';
+  filtered.forEach((name,index) => {
+    const li = document.createElement('li');
+    const initial = document.createElement('span');
+    initial.className = 'initial';
+    initial.textContent = name.charAt(0);
+    const label = document.createElement('span');
+    label.className = 'student-name';
+    label.textContent = name;
+    const id = document.createElement('span');
+    id.className = 'student-id';
+    id.textContent = 'DEMO-' + String(index+1).padStart(3,'0');
+    li.append(initial,label,id);
+    list.appendChild(li);
+  });
+  document.getElementById('emptyMessage').style.display = filtered.length ? 'none' : 'block';
+}
+function toggleMenu() {
+  const panel = document.getElementById('menuPanel');
+  const button = document.querySelector('.menu-button');
+  panel.classList.toggle('open');
+  button.setAttribute('aria-expanded', panel.classList.contains('open'));
+}
+search.addEventListener('input',render);
+render();
+</script>
+</body>
+</html>
